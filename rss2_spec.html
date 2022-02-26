@@ -216,4 +216,80 @@
 
 <h3>&lt;guid&gt; sub-element of &lt;item&gt;<a name="ltguidgtSubelementOfLtitemgt"></a> <a href="#ltguidgtSubelementOfLtitemgt" title="&lt;guid&gt; sub-element of &lt;item&gt;"><img src="images/left-arrow.gif" height="9" width="11" border="0" alt="*"/></a></h3>
 
-<p>&lt;guid&gt; is an optional sub-element of &lt;item&
+<p>&lt;guid&gt; is an optional sub-element of &lt;item&gt;.</p>
+
+<p>guid stands for globally unique identifier. It's a string that uniquely identifies the item. When present, an aggregator may choose to use this string to determine if an item is new.</p>
+
+<p class="example">&lt;guid&gt;http://some.server.com/weblogItem3207&lt;/guid&gt;</p>
+
+<p>There are no rules for the syntax of a guid. Aggregators must view them as a string. It's up to the source of the feed to establish the uniqueness of the string.</p>
+
+<p>If the guid element has an attribute named isPermaLink with a value of true, the reader may assume that it is a permalink to the item, that is, a url that can be opened in a Web browser, that points to the full item described by the &lt;item> element.  An example:</p>
+
+<p class="example">&lt;guid isPermaLink="true"&gt;http://inessential.com/2002/09/01.php#a2&lt;/guid&gt;</p>
+
+<p>isPermaLink is optional, its default value is true. If its value is false, the guid may not be assumed to be a url, or a url to anything in particular.</p>
+
+<h3>&lt;comments&gt; sub-element of &lt;item&gt;<a name="ltcommentsgtSubelementOfLtitemgt"></a> <a href="#ltcommentsgtSubelementOfLtitemgt" title="&lt;comments&gt; sub-element of &lt;item&gt;"><img src="images/left-arrow.gif" height="9" width="11" border="0" alt="*" /></a></h3>
+
+<p>&lt;comments&gt; is an optional sub-element of &lt;item&gt;.</p>
+
+<p>If present, it is the url of the comments page for the item.</p>
+
+<p class="example">&lt;comments&gt;http:&#47;&#47;ekzemplo.com/entry/4403/comments&lt;/comments&gt;</p>
+
+<p>More about comments <a href="https://www.rssboard.org/rss-weblog-comments-use-case">here</a>.</p>
+
+<h3>&lt;author&gt; sub-element of &lt;item&gt;<a name="ltauthorgtSubelementOfLtitemgt"></a> <a href="#ltauthorgtSubelementOfLtitemgt" title="&lt;author&gt; sub-element of &lt;item&gt;"><img src="images/left-arrow.gif" height="9" width="11" border="0" alt="*" /></a></h3>
+
+<p>&lt;author&gt; is an optional sub-element of &lt;item&gt;.</p>
+
+<p>It's the email address of the author of the item. For newspapers and magazines syndicating via RSS, the author is the person who wrote the article that the &lt;item&gt; describes. For collaborative weblogs, the author of the item might be different from the managing editor or webmaster. For a weblog authored by a single individual it would make sense to omit the &lt;author&gt; element.</p>
+
+<p class="example">&lt;author&gt;lawyer@boyer.net (Lawyer Boyer)&lt;/author&gt;</p>
+
+<h2>Comments<a name="comments"></a> <a href="#comments" title="Comments"><img src="images/left-arrow.gif" height="9" width="11" border="0" alt="*" /></a></h2>
+
+<p>RSS places restrictions on the first non-whitespace characters of the data in &lt;link&gt; and &lt;url&gt; elements. The data in these elements must begin with an <a href="http://www.iana.org/assignments/uri-schemes">IANA-registered</a> URI scheme, such as http://, https://, news://, mailto: and ftp://. Prior to RSS 2.0, the specification only allowed http:// and ftp://, however, in practice other URI schemes were in use by content developers and supported by aggregators. Aggregators may have limits on the URI schemes they support. Content developers should not assume that all aggregators support all schemes.</p>
+
+<p>In RSS 0.91, various elements are restricted to 500 or 100 characters. There can be no more than 15 &lt;items&gt; in a 0.91 &lt;channel&gt;. There are no string-length or XML-level limits in RSS 0.92 and greater. Processors may impose their own limits, and generators may have preferences that say no more than a certain number of &lt;item&gt;s can appear in a channel, or that strings are limited in length.</p>
+
+<p>In RSS 2.0, <a name="syndic8"></a>a provision is made for linking a channel to its identifier in a cataloging system, using the channel-level category feature, described above. For example, to link a channel to its Syndic8 identifier, include a category element as a sub-element of &lt;channel&gt;, with domain "Syndic8", and value the identifier for your channel in the Syndic8 database. The appropriate category element for Scripting News would be &lt;category domain="Syndic8"&gt;1765&lt;/category&gt;.</p>
+
+<p>A frequently asked question about &lt;guid&gt;s is how do they compare to &lt;link&gt;s. Aren't they the same thing? Yes, in some content systems, and no in others. In some systems, &lt;link&gt; is a permalink to a weblog item. However, in other systems, each &lt;item&gt; is a synopsis of a longer article, &lt;link&gt; points to the article, and &lt;guid&gt; is the permalink to the weblog entry. In all cases, it's recommended that you provide the guid, and if possible make it a permalink. This enables aggregators to not repeat items, even if there have been editing changes.</p>
+
+<p>If you have questions about the RSS 2.0 format, please post them on the <a href="http://groups.yahoo.com/group/rss-public">RSS-Public</a> mailing list. The list, maintained by the RSS Advisory Board, serves as a support resource for users, authors and developers who are creating and using content in the format.</p>
+
+<h2>Extending RSS<a name="extendingRss"></a> <a href="#extendingRss" title="Extending RSS"><img src="images/left-arrow.gif" height="9" width="11" border="0" alt="*" /></a></h2>
+
+<p>RSS originated in 1999, and has strived to be a simple, easy to understand format, with relatively modest goals. After it became a popular format, developers wanted to extend it using modules defined in namespaces, as <a href="http://www.w3.org/TR/REC-xml-names/">specified</a> by the W3C.</p>
+
+<p>RSS 2.0 adds that capability, following a simple rule. A RSS feed may contain elements and attributes not described on this page, only if those elements and attributes are defined in a namespace.</p>
+
+<p>The elements defined in this document are not themselves members of a namespace, so that RSS 2.0 can remain compatible with previous versions in the following sense -- a version 0.91 or 0.92 file is also a valid 2.0 file. If the elements of RSS 2.0 were in a namespace, this constraint would break, a version 0.9x file <i>would not</i> be a valid 2.0 file.</p>
+
+<h2>Roadmap<a name="roadmap"></a> <a href="#roadmap" title="Roadmap"><img src="images/left-arrow.gif" height="9" width="11" border="0" alt="*"/></a></h2>
+
+<p>RSS is by no means a perfect format, but it is very popular and widely supported. Having a settled spec is something RSS has needed for a long time. The purpose of this work is to help it become a unchanging thing, to foster growth in the market that is developing around it, and to clear the path for innovation in new syndication formats. Therefore, the RSS spec is, for all practical purposes, frozen at version 2.0.1. We anticipate possible 2.0.2 or 2.0.3 versions, etc. only for the purpose of clarifying the specification, not for adding new features to the format. Subsequent work should happen in modules, using namespaces, and in completely new syndication formats, with new names.</p>
+
+<h2>License and authorship<a name="licenseAndAuthorship"></a> <a href="#licenseAndAuthorship" title="License and authorship"><img src="images/left-arrow.gif" height="9" width="11" border="0" alt="*" /></a></h2>
+
+<p>This document is authored by the <a href="https://www.rssboard.org/">RSS Advisory Board</a> and is offered under the terms of the Creative Commons <a href="http://creativecommons.org/licenses/by-sa/2.0/" rel="nofollow">Attribution/Share Alike</a> license, based on an original document published by the Berkman Center for Internet &amp; Society.</p>
+</div><!-- main -->
+<ul class="navbar" id="menu">
+    <li>
+    <a href="../" accesskey="1" title="Go to the Home Page for The W3C Feed Validation Service">Home</a></li>
+    <li><a href="../about.html" title="Information About this Service">About...</a></li>
+    <li><a href="../whatsnew.html" title="The changes made to this service recently">News</a></li>
+    <li><a href="./" accesskey="3" title="Documentation for this Service">Docs</a></li>
+</ul>
+<div id="footer">
+<address>
+Maintained by the <a href="http://www.w3.org/QA/Tools/qa-dev">W3C qa-dev group</a><br>
+This service uses the <a href="https://github.com/w3c/feedvalidator">Feed validator software</a>.
+</address>
+</div>
+
+
+
+</body></html>
